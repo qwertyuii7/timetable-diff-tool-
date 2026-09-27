@@ -1,0 +1,8 @@
+Course,Section,Day,StartTime,EndTime,Room
+CS101,A,Mon,09:00,10:00,Room 101
+CS101,A,Wed,09:00,10:00,Room 101
+CS102,B,Tue,10:00,11:00,Room 102
+CS103,C,Thu,13:00,14:00,Room 103
+CS104,D,Fri,15:00,16:00,Room 104
+CS105,E,Mon,11:00,12:00,Room 105
+CS105,E,Wed,11:00,12:00,Room 106
