@@ -182,15 +182,15 @@ export function CalendarView({ diffs }: { diffs: SessionDiff[] }) {
   };
 
   return (
-    <div className="flex flex-col xl:flex-row gap-8 overflow-x-auto pb-4">
-      <div className="space-y-4 flex-1">
+    <div className="flex flex-col gap-12 overflow-x-auto pb-8 pt-4">
+      <div className="space-y-4 w-full">
         <h3 className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-[#8B7355]">
           <span className="w-2 h-2 rounded-full bg-[#E5D5C5]"></span>
           Previous Version
         </h3>
         {renderGrid('v1')}
       </div>
-      <div className="space-y-4 flex-1">
+      <div className="space-y-4 w-full">
         <h3 className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-emerald-600">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           New Version
