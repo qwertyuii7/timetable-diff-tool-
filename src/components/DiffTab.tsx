@@ -41,18 +41,18 @@ export function DiffTab() {
   return (
     <div className="space-y-4">
       {/* Filters */}
-      <div className="flex gap-4 items-center bg-[#0F172A]/80 backdrop-blur-xl p-4 rounded-2xl border border-white/10 shadow-lg mb-8">
+      <div className="flex gap-4 items-center bg-white/80 backdrop-blur-xl p-4 rounded-2xl border border-[#E5D5C5] shadow-sm mb-8">
         <Select value={filterCourse} onValueChange={(val) => setFilterCourse(val || 'All')}>
-          <SelectTrigger className="w-[180px] bg-[#090D16] border-[#1E293B] text-slate-200"><SelectValue placeholder="Course" /></SelectTrigger>
-          <SelectContent className="bg-[#1E293B] border-[#1E293B] text-slate-200">
+          <SelectTrigger className="w-[180px] bg-white border-[#E5D5C5] text-[#2D2823]"><SelectValue placeholder="Course" /></SelectTrigger>
+          <SelectContent className="bg-white border-[#E5D5C5] text-[#2D2823]">
             <SelectItem value="All">All Courses</SelectItem>
             {courses.map(c => <SelectItem key={c} value={c!}>{c}</SelectItem>)}
           </SelectContent>
         </Select>
 
         <Select value={filterSection} onValueChange={(val) => setFilterSection(val || 'All')}>
-          <SelectTrigger className="w-[180px] bg-[#090D16] border-[#1E293B] text-slate-200"><SelectValue placeholder="Section" /></SelectTrigger>
-          <SelectContent className="bg-[#1E293B] border-[#1E293B] text-slate-200">
+          <SelectTrigger className="w-[180px] bg-white border-[#E5D5C5] text-[#2D2823]"><SelectValue placeholder="Section" /></SelectTrigger>
+          <SelectContent className="bg-white border-[#E5D5C5] text-[#2D2823]">
             <SelectItem value="All">All Sections</SelectItem>
             {sections.map(s => <SelectItem key={s} value={s!}>{s}</SelectItem>)}
           </SelectContent>
@@ -61,35 +61,35 @@ export function DiffTab() {
         <div className="flex gap-2 ml-auto">
           <Badge 
             variant={filterStatus === 'all' ? 'default' : 'outline'} 
-            className={`cursor-pointer ${filterStatus === 'all' ? 'bg-indigo-600 hover:bg-indigo-500 text-white border-0' : 'border-[#1E293B] text-slate-400 hover:text-white'}`} onClick={() => setFilterStatus('all')}
+            className={`cursor-pointer ${filterStatus === 'all' ? 'bg-[#8B7355] hover:bg-[#735F46] text-white border-0' : 'border-[#E5D5C5] text-[#5C5346] hover:text-[#2D2823]'}`} onClick={() => setFilterStatus('all')}
           >All</Badge>
           <Badge 
             variant={filterStatus === 'added' ? 'default' : 'outline'} 
-            className={`cursor-pointer ${filterStatus === 'added' ? 'bg-emerald-500/20 text-emerald-400 border-0' : 'border-[#1E293B] text-emerald-500/50 hover:text-emerald-400'}`} onClick={() => setFilterStatus('added')}
+            className={`cursor-pointer ${filterStatus === 'added' ? 'bg-emerald-100 text-emerald-800 border-0' : 'border-[#E5D5C5] text-emerald-600 hover:text-emerald-800'}`} onClick={() => setFilterStatus('added')}
           >Added</Badge>
           <Badge 
             variant={filterStatus === 'removed' ? 'default' : 'outline'} 
-            className={`cursor-pointer ${filterStatus === 'removed' ? 'bg-rose-500/20 text-rose-400 border-0' : 'border-[#1E293B] text-rose-500/50 hover:text-rose-400'}`} onClick={() => setFilterStatus('removed')}
+            className={`cursor-pointer ${filterStatus === 'removed' ? 'bg-rose-100 text-rose-800 border-0' : 'border-[#E5D5C5] text-rose-600 hover:text-rose-800'}`} onClick={() => setFilterStatus('removed')}
           >Removed</Badge>
           <Badge 
             variant={filterStatus === 'changed' ? 'default' : 'outline'} 
-            className={`cursor-pointer ${filterStatus === 'changed' ? 'bg-amber-500/20 text-amber-400 border-0' : 'border-[#1E293B] text-amber-500/50 hover:text-amber-400'}`} onClick={() => setFilterStatus('changed')}
+            className={`cursor-pointer ${filterStatus === 'changed' ? 'bg-amber-100 text-amber-800 border-0' : 'border-[#E5D5C5] text-amber-600 hover:text-amber-800'}`} onClick={() => setFilterStatus('changed')}
           >Changed</Badge>
           <Badge 
             variant={filterStatus === 'unchanged' ? 'default' : 'outline'} 
-            className={`cursor-pointer ${filterStatus === 'unchanged' ? 'bg-[#1E293B] text-slate-300 border-0' : 'border-[#1E293B] text-slate-500 hover:text-slate-300'}`} onClick={() => setFilterStatus('unchanged')}
+            className={`cursor-pointer ${filterStatus === 'unchanged' ? 'bg-[#FDFBF7] text-[#5C5346] border-0' : 'border-[#E5D5C5] text-[#5C5346] hover:text-[#2D2823]'}`} onClick={() => setFilterStatus('unchanged')}
           >Unchanged</Badge>
           <Badge 
             variant={filterStatus === 'ambiguous' ? 'default' : 'outline'} 
-            className={`cursor-pointer ${filterStatus === 'ambiguous' ? 'bg-indigo-500/20 text-indigo-400 border-0' : 'border-[#1E293B] text-indigo-500/50 hover:text-indigo-400'}`} onClick={() => setFilterStatus('ambiguous')}
+            className={`cursor-pointer ${filterStatus === 'ambiguous' ? 'bg-purple-100 text-purple-800 border-0' : 'border-[#E5D5C5] text-purple-600 hover:text-purple-800'}`} onClick={() => setFilterStatus('ambiguous')}
           >Needs Review</Badge>
         </div>
       </div>
 
       <Tabs defaultValue="calendar" className="w-full">
-        <TabsList className="bg-[#0F172A] border border-white/5 rounded-xl p-1 mb-6">
-          <TabsTrigger value="calendar" className="rounded-lg data-[state=active]:bg-[#1E293B] data-[state=active]:text-white text-slate-400">Calendar View</TabsTrigger>
-          <TabsTrigger value="list" className="rounded-lg data-[state=active]:bg-[#1E293B] data-[state=active]:text-white text-slate-400">List View</TabsTrigger>
+        <TabsList className="bg-white/80 border border-[#E5D5C5] rounded-xl p-1 mb-6 shadow-sm">
+          <TabsTrigger value="calendar" className="rounded-lg data-[state=active]:bg-[#FDFBF7] data-[state=active]:text-[#2D2823] text-[#5C5346]">Calendar View</TabsTrigger>
+          <TabsTrigger value="list" className="rounded-lg data-[state=active]:bg-[#FDFBF7] data-[state=active]:text-[#2D2823] text-[#5C5346]">List View</TabsTrigger>
         </TabsList>
         <TabsContent value="calendar" className="mt-4">
           <CalendarView diffs={filteredDiffs} />

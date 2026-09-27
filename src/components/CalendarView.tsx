@@ -19,11 +19,11 @@ function timeToPixels(timeStr: string): number {
 export function CalendarView({ diffs }: { diffs: SessionDiff[] }) {
   const renderGrid = (version: 'v1' | 'v2') => {
     return (
-      <div className="flex bg-[#0F172A]/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden relative shadow-2xl min-w-[600px]">
+      <div className="flex bg-white/70 backdrop-blur-xl border border-[#E5D5C5] rounded-2xl overflow-hidden relative shadow-xl shadow-[#E5D5C5]/20 min-w-[600px]">
         {/* Time labels axis */}
-        <div className="w-16 flex-shrink-0 border-r border-white/5 bg-[#090D16]/50 flex flex-col pt-10">
+        <div className="w-16 flex-shrink-0 border-r border-[#E5D5C5] bg-[#F5EFE6]/50 flex flex-col pt-10">
           {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
-            <div key={i} className="text-[11px] font-medium text-right pr-3 text-slate-500 border-b border-white/5" style={{ height: HOUR_HEIGHT }}>
+            <div key={i} className="text-[11px] font-medium text-right pr-3 text-[#8B7355] border-b border-[#E5D5C5]/50" style={{ height: HOUR_HEIGHT }}>
               {`${(START_HOUR + i).toString().padStart(2, '0')}:00`}
             </div>
           ))}
@@ -75,13 +75,13 @@ export function CalendarView({ diffs }: { diffs: SessionDiff[] }) {
           const maxCols = Math.max(1, columns.length);
 
           return (
-            <div key={day} className="flex-1 border-r border-white/5 last:border-r-0 relative group min-w-[120px]">
-              <div className="text-center font-semibold text-xs py-3 border-b border-white/5 text-slate-400 bg-[#090D16]/30 h-10 tracking-wider uppercase">{day}</div>
+            <div key={day} className="flex-1 border-r border-[#E5D5C5]/50 last:border-r-0 relative group min-w-[120px]">
+              <div className="text-center font-semibold text-xs py-3 border-b border-[#E5D5C5]/50 text-[#5C5346] bg-[#F5EFE6]/30 h-10 tracking-wider uppercase">{day}</div>
               <div className="relative" style={{ height: (END_HOUR - START_HOUR) * HOUR_HEIGHT }}>
                 {/* Grid Lines */}
                 <div className="absolute inset-0 pointer-events-none flex flex-col opacity-0 group-hover:opacity-100 transition-opacity">
                    {Array.from({ length: END_HOUR - START_HOUR }).map((_, i) => (
-                      <div key={i} className="w-full border-b border-white/5" style={{ height: HOUR_HEIGHT }} />
+                      <div key={i} className="w-full border-b border-[#E5D5C5]/50" style={{ height: HOUR_HEIGHT }} />
                    ))}
                 </div>
 
@@ -90,12 +90,12 @@ export function CalendarView({ diffs }: { diffs: SessionDiff[] }) {
                   const width = `calc(${100 / maxCols}% - 4px)`;
                   const left = `calc(${col * (100 / maxCols)}% + 2px)`;
 
-                  let bg = 'bg-[#1E293B] border-white/10 text-slate-200 shadow-sm hover:shadow-md';
+                  let bg = 'bg-white border-[#E5D5C5] text-[#2D2823] shadow-sm hover:shadow-md';
                   let animationProps = {};
                   let isDashed = false;
 
                   if (diff.status === 'changed') {
-                    bg = 'bg-amber-500/10 border-amber-500/30 text-amber-400 shadow-amber-500/5';
+                    bg = 'bg-amber-50/90 border-amber-300 text-amber-900 shadow-amber-500/10 shadow-sm';
                     if (version === 'v2') {
                       animationProps = {
                         initial: { opacity: 0.5, scale: 0.95 },
@@ -104,20 +104,20 @@ export function CalendarView({ diffs }: { diffs: SessionDiff[] }) {
                       };
                     } else {
                        isDashed = true;
-                       bg = 'bg-transparent border-amber-500/20 text-amber-500/40 opacity-60';
+                       bg = 'bg-transparent border-amber-300/60 text-amber-900/50 opacity-70';
                     }
                   } else if (diff.status === 'added' && version === 'v2') {
-                    bg = 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-emerald-500/5';
+                    bg = 'bg-emerald-50/90 border-emerald-300 text-emerald-900 shadow-emerald-500/10 shadow-sm';
                     animationProps = {
                       initial: { opacity: 0, y: 10 },
                       animate: { opacity: 1, y: 0 },
                       transition: { duration: 0.4, delay: 0.1 }
                     };
                   } else if (diff.status === 'removed' && version === 'v1') {
-                    bg = 'bg-rose-500/5 border-rose-500/20 text-rose-500/50 opacity-60';
+                    bg = 'bg-rose-50/50 border-rose-200 text-rose-700/60 opacity-60';
                     isDashed = true;
                   } else if (diff.status === 'ambiguous' && version === 'v2') {
-                    bg = 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400 shadow-indigo-500/5';
+                    bg = 'bg-purple-50/90 border-purple-300 text-purple-900 shadow-purple-500/10 shadow-sm';
                     animationProps = {
                       animate: { opacity: [0.7, 1, 0.7] },
                       transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" }
@@ -151,16 +151,16 @@ export function CalendarView({ diffs }: { diffs: SessionDiff[] }) {
                           </motion.div>
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent className="text-xs border border-white/10 shadow-2xl bg-[#0F172A]/95 backdrop-blur-xl text-slate-200 p-3 rounded-xl max-w-[220px]">
-                        <div className="font-bold text-sm text-white mb-1">{s.courseCode} <span className="font-medium text-slate-500">Sec {s.section}</span></div>
-                        <div className="flex items-center gap-2 mb-1 text-slate-300">
-                          <span className="w-4 h-4 inline-flex items-center justify-center bg-[#1E293B] rounded border border-white/5">📍</span> {s.room}
+                      <TooltipContent className="text-xs border border-[#E5D5C5] shadow-xl bg-white/95 backdrop-blur-xl text-[#2D2823] p-3 rounded-xl max-w-[220px]">
+                        <div className="font-bold text-sm text-[#2D2823] mb-1">{s.courseCode} <span className="font-medium text-[#8B7355]">Sec {s.section}</span></div>
+                        <div className="flex items-center gap-2 mb-1 text-[#5C5346]">
+                          <span className="w-4 h-4 inline-flex items-center justify-center bg-[#F5EFE6] rounded border border-[#E5D5C5]">📍</span> {s.room}
                         </div>
-                        <div className="flex items-center gap-2 text-slate-300">
-                          <span className="w-4 h-4 inline-flex items-center justify-center bg-[#1E293B] rounded border border-white/5">🕒</span> {s.startTime} - {s.endTime}
+                        <div className="flex items-center gap-2 text-[#5C5346]">
+                          <span className="w-4 h-4 inline-flex items-center justify-center bg-[#F5EFE6] rounded border border-[#E5D5C5]">🕒</span> {s.startTime} - {s.endTime}
                         </div>
                         {clashes.length > 0 && (
-                           <div className="mt-3 pt-2 border-t border-white/5 text-rose-400 space-y-1.5">
+                           <div className="mt-3 pt-2 border-t border-[#E5D5C5]/50 text-rose-600 space-y-1.5">
                              {clashes.map((c, idx) => (
                                <div key={idx} className="flex items-start gap-1">
                                  <span className="shrink-0 mt-0.5">⚠️</span> 
@@ -184,15 +184,15 @@ export function CalendarView({ diffs }: { diffs: SessionDiff[] }) {
   return (
     <div className="flex flex-col xl:flex-row gap-8 overflow-x-auto pb-4">
       <div className="space-y-4 flex-1">
-        <h3 className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-slate-500">
-          <span className="w-2 h-2 rounded-full bg-slate-600"></span>
+        <h3 className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-[#8B7355]">
+          <span className="w-2 h-2 rounded-full bg-[#E5D5C5]"></span>
           Previous Version
         </h3>
         {renderGrid('v1')}
       </div>
       <div className="space-y-4 flex-1">
-        <h3 className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-indigo-400">
-          <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+        <h3 className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-emerald-600">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           New Version
         </h3>
         {renderGrid('v2')}

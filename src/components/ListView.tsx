@@ -31,13 +31,13 @@ export function ListView({ diffs }: { diffs: SessionDiff[] }) {
 
   if (diffs.length === 0) {
     return (
-      <Card className="border-0 shadow-lg bg-[#0F172A]/80 backdrop-blur-md">
-        <CardContent className="flex flex-col items-center justify-center p-16 text-slate-400">
-          <div className="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mb-6 shadow-sm border border-emerald-500/20">
+      <Card className="border border-[#E5D5C5] shadow-lg bg-white/80 backdrop-blur-md">
+        <CardContent className="flex flex-col items-center justify-center p-16 text-[#5C5346]">
+          <div className="w-16 h-16 bg-[#F5EFE6] text-[#8B7355] rounded-full flex items-center justify-center mb-6 shadow-sm border border-[#E5D5C5]">
             <CheckCircle2 className="w-8 h-8" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">Nothing changed &mdash; you&apos;re all set</h3>
-          <p className="text-slate-500 text-center max-w-sm">
+          <h3 className="text-2xl font-bold text-[#2D2823] mb-2">Nothing changed &mdash; you&apos;re all set</h3>
+          <p className="text-[#5C5346] text-center max-w-sm">
             Both schedules match perfectly based on your current filters.
           </p>
         </CardContent>
@@ -46,17 +46,17 @@ export function ListView({ diffs }: { diffs: SessionDiff[] }) {
   }
 
   return (
-    <Card className="border border-white/10 shadow-2xl bg-[#0F172A] overflow-hidden">
+    <Card className="border border-[#E5D5C5] shadow-xl bg-white overflow-hidden">
       <div className="overflow-x-auto">
         <Table>
-          <TableHeader className="bg-[#090D16]">
-            <TableRow className="hover:bg-transparent border-b-white/10">
-              <TableHead className="w-[140px] font-semibold text-slate-400">Status</TableHead>
-              <TableHead className="font-semibold text-slate-400">Course</TableHead>
-              <TableHead className="font-semibold text-slate-400">Section</TableHead>
-              <TableHead className="font-semibold text-slate-400">Day & Time (Old → New)</TableHead>
-              <TableHead className="font-semibold text-slate-400">Room (Old → New)</TableHead>
-              <TableHead className="font-semibold text-slate-400">Alerts</TableHead>
+          <TableHeader className="bg-[#FDFBF7]">
+            <TableRow className="hover:bg-transparent border-b-[#E5D5C5]/50">
+              <TableHead className="w-[140px] font-semibold text-[#8B7355]">Status</TableHead>
+              <TableHead className="font-semibold text-[#8B7355]">Course</TableHead>
+              <TableHead className="font-semibold text-[#8B7355]">Section</TableHead>
+              <TableHead className="font-semibold text-[#8B7355]">Day & Time (Old → New)</TableHead>
+              <TableHead className="font-semibold text-[#8B7355]">Room (Old → New)</TableHead>
+              <TableHead className="font-semibold text-[#8B7355]">Alerts</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -67,67 +67,67 @@ export function ListView({ diffs }: { diffs: SessionDiff[] }) {
               const globalIndex = allDiffs.findIndex(d => d === diff);
 
               return (
-                <TableRow key={i} className="group hover:bg-[#1E293B]/50 transition-colors border-b-white/5">
+                <TableRow key={i} className="group hover:bg-[#F5EFE6]/30 transition-colors border-b-[#E5D5C5]/30">
                   <TableCell>
                     <StatusBadge status={diff.status} />
                   </TableCell>
-                  <TableCell className="font-bold text-slate-200">{displayS?.courseCode}</TableCell>
-                  <TableCell className="font-medium text-slate-500">{displayS?.section}</TableCell>
+                  <TableCell className="font-bold text-[#2D2823]">{displayS?.courseCode}</TableCell>
+                  <TableCell className="font-medium text-[#5C5346]">{displayS?.section}</TableCell>
                   <TableCell>
                     {diff.status === 'changed' ? (
                       <div className="flex items-center gap-2 text-sm">
-                        <span className={`px-2 py-1 rounded-md ${diff.changedFields?.includes('day') || diff.changedFields?.includes('startTime') || diff.changedFields?.includes('endTime') ? 'bg-rose-500/10 text-rose-400 line-through decoration-rose-400/50' : 'bg-[#1E293B] text-slate-400'}`}>
+                        <span className={`px-2 py-1 rounded-md ${diff.changedFields?.includes('day') || diff.changedFields?.includes('startTime') || diff.changedFields?.includes('endTime') ? 'bg-rose-50 text-rose-600 line-through decoration-rose-300' : 'bg-[#FDFBF7] text-[#5C5346]'}`}>
                           {s1?.day} {s1?.startTime}-{s1?.endTime}
                         </span>
-                        <ArrowRightLeft className="w-3 h-3 text-slate-500" />
-                        <span className="px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-400 font-medium">
+                        <ArrowRightLeft className="w-3 h-3 text-[#E5D5C5]" />
+                        <span className="px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 font-medium">
                           {s2?.day} {s2?.startTime}-{s2?.endTime}
                         </span>
                       </div>
                     ) : diff.status === 'ambiguous' ? (
                       <div className="space-y-3">
-                        <span className="inline-block px-2 py-1 rounded-md bg-indigo-500/10 text-indigo-400 font-medium text-sm">
+                        <span className="inline-block px-2 py-1 rounded-md bg-purple-50 text-purple-700 font-medium text-sm">
                           {s2?.day} {s2?.startTime}-{s2?.endTime} <span className="opacity-70">(New)</span>
                         </span>
-                        <div className="bg-[#090D16] rounded-lg p-3 text-xs border border-white/5">
-                          <div className="text-slate-500 font-semibold mb-2 uppercase tracking-wider text-[10px]">Match Candidates:</div>
+                        <div className="bg-[#FDFBF7] rounded-lg p-3 text-xs border border-[#E5D5C5]">
+                          <div className="text-[#8B7355] font-semibold mb-2 uppercase tracking-wider text-[10px]">Match Candidates:</div>
                           {diff.candidates?.map(c => (
-                            <div key={c.id} className="flex justify-between items-center py-1 border-b border-white/5 last:border-0">
-                              <span className="font-medium text-slate-300">{c.day} {c.startTime}-{c.endTime}</span>
-                              <Button size="sm" variant="outline" className="h-7 text-xs shadow-sm bg-transparent border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 transition-colors" onClick={() => handleResolveAmbiguous(globalIndex, c.id)}>Accept Match</Button>
+                            <div key={c.id} className="flex justify-between items-center py-1 border-b border-[#E5D5C5]/50 last:border-0">
+                              <span className="font-medium text-[#2D2823]">{c.day} {c.startTime}-{c.endTime}</span>
+                              <Button size="sm" variant="outline" className="h-7 text-xs shadow-sm bg-white border-[#E5D5C5] text-[#8B7355] hover:bg-[#F5EFE6] transition-colors" onClick={() => handleResolveAmbiguous(globalIndex, c.id)}>Accept Match</Button>
                             </div>
                           ))}
                         </div>
                       </div>
                     ) : (
-                      <span className="text-slate-400">{displayS?.day} {displayS?.startTime}-{displayS?.endTime}</span>
+                      <span className="text-[#5C5346]">{displayS?.day} {displayS?.startTime}-{displayS?.endTime}</span>
                     )}
                   </TableCell>
                   <TableCell>
                     {diff.status === 'changed' ? (
                       <div className="flex items-center gap-2 text-sm">
-                        <span className={`px-2 py-1 rounded-md ${diff.changedFields?.includes('room') ? 'bg-rose-500/10 text-rose-400 line-through decoration-rose-400/50' : 'bg-[#1E293B] text-slate-400'}`}>
+                        <span className={`px-2 py-1 rounded-md ${diff.changedFields?.includes('room') ? 'bg-rose-50 text-rose-600 line-through decoration-rose-300' : 'bg-[#FDFBF7] text-[#5C5346]'}`}>
                           {s1?.room}
                         </span>
                         {diff.changedFields?.includes('room') && (
                            <>
-                             <ArrowRightLeft className="w-3 h-3 text-slate-500" />
-                             <span className="px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-400 font-medium">
+                             <ArrowRightLeft className="w-3 h-3 text-[#E5D5C5]" />
+                             <span className="px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 font-medium">
                                {s2?.room}
                              </span>
                            </>
                         )}
                       </div>
                     ) : diff.status === 'ambiguous' ? (
-                      <span className="text-slate-200 font-medium">{s2?.room}</span>
+                      <span className="text-[#2D2823] font-medium">{s2?.room}</span>
                     ) : (
-                      <span className="text-slate-400">{displayS?.room}</span>
+                      <span className="text-[#5C5346]">{displayS?.room}</span>
                     )}
                   </TableCell>
                   <TableCell>
                     {diff.causesClash?.map((clash, j) => (
-                      <Badge key={j} variant="destructive" className="flex items-center gap-1.5 mt-1 text-xs whitespace-nowrap bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 shadow-none font-medium px-2 py-1">
-                        <AlertTriangle className="w-3 h-3 text-rose-400" />
+                      <Badge key={j} variant="destructive" className="flex items-center gap-1.5 mt-1 text-xs whitespace-nowrap bg-rose-100 text-rose-800 hover:bg-rose-200 border-0 shadow-none font-medium px-2 py-1">
+                        <AlertTriangle className="w-3 h-3 text-rose-600" />
                         {clash.message}
                       </Badge>
                     ))}
@@ -144,10 +144,10 @@ export function ListView({ diffs }: { diffs: SessionDiff[] }) {
 
 function StatusBadge({ status }: { status: SessionDiff['status'] }) {
   switch (status) {
-    case 'added': return <Badge className="bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/20 font-semibold px-2.5 py-0.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5"></span> Added</Badge>;
-    case 'removed': return <Badge className="bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 font-semibold px-2.5 py-0.5"><span className="w-1.5 h-1.5 rounded-full bg-rose-400 mr-1.5"></span> Removed</Badge>;
-    case 'changed': return <Badge className="bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 font-semibold px-2.5 py-0.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1.5"></span> Changed</Badge>;
-    case 'ambiguous': return <Badge className="bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/20 font-semibold px-2.5 py-0.5"><Info className="w-3 h-3 mr-1.5" /> Needs Review</Badge>;
-    default: return <Badge variant="secondary" className="bg-[#1E293B] text-slate-400 hover:bg-[#1E293B]/80 border border-white/5 font-medium px-2.5 py-0.5">Unchanged</Badge>;
+    case 'added': return <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200 border-0 font-semibold px-2.5 py-0.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> Added</Badge>;
+    case 'removed': return <Badge className="bg-rose-100 text-rose-800 hover:bg-rose-200 border-0 font-semibold px-2.5 py-0.5"><span className="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5"></span> Removed</Badge>;
+    case 'changed': return <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-200 border-0 font-semibold px-2.5 py-0.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5"></span> Changed</Badge>;
+    case 'ambiguous': return <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200 border-0 font-semibold px-2.5 py-0.5"><Info className="w-3 h-3 mr-1.5" /> Needs Review</Badge>;
+    default: return <Badge variant="secondary" className="bg-[#FDFBF7] text-[#5C5346] hover:bg-[#F5EFE6] border border-[#E5D5C5] font-medium px-2.5 py-0.5">Unchanged</Badge>;
   }
 }
