@@ -6,7 +6,7 @@ import { DiffTab } from '@/components/DiffTab';
 import { SummaryTab } from '@/components/SummaryTab';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTimetableStore } from '@/store/useTimetableStore';
-import { FileUp, Sparkles, LayoutList } from 'lucide-react';
+import { FileUp, GitMerge, TerminalSquare, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Home() {
@@ -16,43 +16,54 @@ export default function Home() {
   const hasData = v1Sessions.length > 0 && v2Sessions.length > 0;
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-50 via-white to-white text-gray-900 p-6 md:p-12 font-sans selection:bg-blue-100 selection:text-blue-900">
-      <div className="max-w-7xl mx-auto space-y-10">
-        <header className="text-center space-y-4 py-8">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="inline-flex items-center justify-center p-2 bg-blue-50 rounded-2xl mb-4 border border-blue-100 shadow-sm">
-              <Sparkles className="w-5 h-5 text-blue-600 mr-2" />
-              <span className="text-sm font-semibold tracking-wide text-blue-800 uppercase">Version 2.0</span>
+    <main className="min-h-screen bg-[#090D16] text-slate-300 font-sans selection:bg-indigo-500/30 selection:text-indigo-200 overflow-x-hidden">
+      {/* Ambient background glow */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 blur-[120px] rounded-full" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto space-y-12 px-6 md:px-12 pt-16 pb-24">
+        
+        {/* Hero Section */}
+        <header className="text-center space-y-6 pt-10 pb-8">
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}>
+            <div className="inline-flex items-center justify-center px-3 py-1 bg-white/5 rounded-full mb-6 border border-white/10 shadow-lg backdrop-blur-md">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+              <span className="text-xs font-medium tracking-widest text-slate-300 uppercase">Engineered for Precision</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 drop-shadow-sm">
-              What <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Changed?</span>
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">
+              What <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Changed?</span>
             </h1>
-            <p className="mt-4 text-xl text-gray-500 max-w-2xl mx-auto font-medium">
-              The intelligent timetable diffing tool. See exactly what moved, what’s new, and spot clashes instantly.
+            <p className="mt-6 text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+              Topological conflict detection and schedule reconciliation. <br className="hidden md:block" /> Drop two timetables, and we'll compute the exact diff.
             </p>
           </motion.div>
         </header>
 
-        <Tabs value={tab} onValueChange={setTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto mb-12 h-14 bg-white/50 backdrop-blur-md border shadow-sm rounded-2xl p-1">
-            <TabsTrigger value="upload" className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-md transition-all">
-              <div className="flex items-center gap-2 text-base"><FileUp className="w-4 h-4" /> 1. Upload</div>
-            </TabsTrigger>
-            <TabsTrigger value="diff" disabled={!hasData} className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-md transition-all">
-              <div className="flex items-center gap-2 text-base"><LayoutList className="w-4 h-4" /> 2. Review Changes</div>
-            </TabsTrigger>
-            <TabsTrigger value="summary" disabled={!hasData} className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-md transition-all">
-              <div className="flex items-center gap-2 text-base"><Sparkles className="w-4 h-4" /> 3. Summary</div>
-            </TabsTrigger>
-          </TabsList>
+        {/* Navigation Tabs */}
+        <Tabs value={tab} onValueChange={setTab} className="w-full relative z-10">
+          <div className="flex justify-center mb-12">
+            <TabsList className="flex w-full max-w-2xl bg-[#0F172A]/80 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl p-1.5 h-auto">
+              <TabsTrigger value="upload" className="flex-1 py-3 rounded-xl data-[state=active]:bg-[#1E293B] data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-400 transition-all">
+                <div className="flex items-center justify-center gap-2 text-sm font-medium"><FileUp className="w-4 h-4" /> 01 / Ingest</div>
+              </TabsTrigger>
+              <TabsTrigger value="diff" disabled={!hasData} className="flex-1 py-3 rounded-xl data-[state=active]:bg-[#1E293B] data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-400 transition-all disabled:opacity-30">
+                <div className="flex items-center justify-center gap-2 text-sm font-medium"><GitMerge className="w-4 h-4" /> 02 / Diff</div>
+              </TabsTrigger>
+              <TabsTrigger value="summary" disabled={!hasData} className="flex-1 py-3 rounded-xl data-[state=active]:bg-[#1E293B] data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-400 transition-all disabled:opacity-30">
+                <div className="flex items-center justify-center gap-2 text-sm font-medium"><TerminalSquare className="w-4 h-4" /> 03 / Report</div>
+              </TabsTrigger>
+            </TabsList>
+          </div>
           
           <AnimatePresence mode="wait">
             <motion.div
               key={tab}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <TabsContent value="upload" className="mt-0 outline-none">
                 <UploadTab onComplete={() => setTab('diff')} />

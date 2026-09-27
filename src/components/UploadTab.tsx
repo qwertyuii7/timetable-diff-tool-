@@ -139,36 +139,36 @@ export function UploadTab({ onComplete }: { onComplete: () => void }) {
   if (state.step === 'mapping') {
     return (
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-2xl mx-auto">
-        <Card className="border-0 shadow-xl shadow-blue-900/5 bg-white/80 backdrop-blur-xl">
-          <CardHeader className="text-center pb-2">
-            <div className="mx-auto bg-blue-100 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-4">
-              <TableProperties className="w-7 h-7 text-blue-600" />
+        <Card className="border-white/10 shadow-2xl bg-[#0F172A]/80 backdrop-blur-xl">
+          <CardHeader className="text-center pb-2 border-b border-white/5">
+            <div className="mx-auto bg-indigo-500/10 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-4 border border-indigo-500/20">
+              <TableProperties className="w-7 h-7 text-indigo-400" />
             </div>
-            <CardTitle className="text-2xl">Map Your Columns</CardTitle>
-            <CardDescription className="text-base">We detected the headers in your spreadsheet. Please confirm them below.</CardDescription>
+            <CardTitle className="text-2xl text-white">Map Your Columns</CardTitle>
+            <CardDescription className="text-slate-400">We detected the headers in your spreadsheet. Please confirm them below.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6 pt-4">
             <div className="grid grid-cols-2 gap-x-8 gap-y-6">
               {Object.keys(state.mapping).map((field) => (
                 <div key={field} className="grid gap-2">
-                  <Label className="capitalize text-sm font-semibold text-gray-700">{field.replace(/([A-Z])/g, ' $1').trim()}</Label>
+                  <Label className="capitalize text-sm font-semibold text-slate-300">{field.replace(/([A-Z])/g, ' $1').trim()}</Label>
                   <Select 
                     value={state.mapping[field as keyof UploadState['mapping']]} 
                     onValueChange={(val) => handleMappingChange(field as keyof UploadState['mapping'], val || '')}
                   >
-                    <SelectTrigger className="bg-gray-50/50 border-gray-200">
+                    <SelectTrigger className="bg-[#090D16] border-white/10 text-white focus:ring-indigo-500/50">
                       <SelectValue placeholder="Select column..." />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-[#1E293B] border-white/10 text-white">
                       {state.v1Headers.map(h => (
-                        <SelectItem key={h} value={h}>{h}</SelectItem>
+                        <SelectItem key={h} value={h} className="focus:bg-[#0F172A] focus:text-white">{h}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
               ))}
             </div>
-            <Button onClick={processMapping} className="w-full mt-8 h-12 text-lg rounded-xl shadow-md bg-blue-600 hover:bg-blue-700 group">
+            <Button onClick={processMapping} className="w-full mt-8 h-12 text-lg rounded-xl shadow-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium group">
               Process Timetables
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
@@ -200,25 +200,25 @@ export function UploadTab({ onComplete }: { onComplete: () => void }) {
 
 function UploadDropzone({ title, description, loaded, onUpload, id }: { title: string, description: string, loaded: boolean, onUpload: (e: React.ChangeEvent<HTMLInputElement>) => void, id: string }) {
   return (
-    <Card className={`border-0 shadow-lg transition-all duration-300 ${loaded ? 'shadow-emerald-900/10 bg-emerald-50/30 ring-1 ring-emerald-500/50' : 'shadow-blue-900/5 bg-white/80'} backdrop-blur-xl`}>
+    <Card className={`border border-white/10 shadow-2xl transition-all duration-300 ${loaded ? 'shadow-emerald-900/10 bg-emerald-900/10 ring-1 ring-emerald-500/30' : 'shadow-indigo-900/5 bg-[#0F172A]/80'} backdrop-blur-xl`}>
       <CardHeader>
-        <CardTitle className="text-xl">{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardTitle className="text-xl text-white">{title}</CardTitle>
+        <CardDescription className="text-slate-400">{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className={`relative border-2 border-dashed rounded-2xl p-12 text-center transition-colors ${loaded ? 'border-emerald-300 bg-emerald-50/50' : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50/50'}`}>
+        <div className={`relative border-2 border-dashed rounded-2xl p-12 text-center transition-colors ${loaded ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-[#1E293B] hover:border-indigo-500/50 hover:bg-indigo-500/5'}`}>
           <Label htmlFor={`${id}-upload`} className="cursor-pointer flex flex-col items-center justify-center w-full h-full">
             {loaded ? (
               <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex flex-col items-center">
-                <CheckCircle2 className="w-12 h-12 text-emerald-500 mb-4" />
-                <span className="text-emerald-700 font-semibold text-lg">File Loaded Successfully</span>
+                <CheckCircle2 className="w-12 h-12 text-emerald-400 mb-4" />
+                <span className="text-emerald-400 font-semibold text-lg">File Loaded Successfully</span>
               </motion.div>
             ) : (
-              <div className="flex flex-col items-center text-gray-500 hover:text-blue-600 transition-colors">
-                <div className="p-4 bg-white rounded-full shadow-sm mb-4">
+              <div className="flex flex-col items-center text-slate-500 hover:text-indigo-400 transition-colors">
+                <div className="p-4 bg-[#1E293B] rounded-full shadow-sm mb-4 border border-white/5">
                   <FileUp className="w-8 h-8" />
                 </div>
-                <span className="font-medium text-lg">Click or drag file to upload</span>
+                <span className="font-medium text-lg text-slate-300">Click or drag file to upload</span>
               </div>
             )}
             <Input 
