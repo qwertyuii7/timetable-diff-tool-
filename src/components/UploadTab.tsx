@@ -198,7 +198,7 @@ export function UploadTab({ onComplete }: { onComplete: () => void }) {
   );
 }
 
-function UploadDropzone({ title, description, loaded, onUpload, id }: { title: string, description: string, loaded: boolean, onUpload: (e: any) => void, id: string }) {
+function UploadDropzone({ title, description, loaded, onUpload, id }: { title: string, description: string, loaded: boolean, onUpload: (e: React.ChangeEvent<HTMLInputElement>) => void, id: string }) {
   return (
     <Card className={`border-0 shadow-lg transition-all duration-300 ${loaded ? 'shadow-emerald-900/10 bg-emerald-50/30 ring-1 ring-emerald-500/50' : 'shadow-blue-900/5 bg-white/80'} backdrop-blur-xl`}>
       <CardHeader>
