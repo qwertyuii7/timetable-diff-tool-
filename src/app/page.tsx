@@ -1,101 +1,74 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import { UploadTab } from '@/components/UploadTab';
+import { DiffTab } from '@/components/DiffTab';
+import { SummaryTab } from '@/components/SummaryTab';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useTimetableStore } from '@/store/useTimetableStore';
+import { FileUp, Sparkles, LayoutList } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { v1Sessions, v2Sessions } = useTimetableStore();
+  const [tab, setTab] = useState('upload');
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  const hasData = v1Sessions.length > 0 && v2Sessions.length > 0;
+
+  return (
+    <main className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-50 via-white to-white text-gray-900 p-6 md:p-12 font-sans selection:bg-blue-100 selection:text-blue-900">
+      <div className="max-w-7xl mx-auto space-y-10">
+        <header className="text-center space-y-4 py-8">
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <div className="inline-flex items-center justify-center p-2 bg-blue-50 rounded-2xl mb-4 border border-blue-100 shadow-sm">
+              <Sparkles className="w-5 h-5 text-blue-600 mr-2" />
+              <span className="text-sm font-semibold tracking-wide text-blue-800 uppercase">Version 2.0</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 drop-shadow-sm">
+              What <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Changed?</span>
+            </h1>
+            <p className="mt-4 text-xl text-gray-500 max-w-2xl mx-auto font-medium">
+              The intelligent timetable diffing tool. See exactly what moved, what’s new, and spot clashes instantly.
+            </p>
+          </motion.div>
+        </header>
+
+        <Tabs value={tab} onValueChange={setTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto mb-12 h-14 bg-white/50 backdrop-blur-md border shadow-sm rounded-2xl p-1">
+            <TabsTrigger value="upload" className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-md transition-all">
+              <div className="flex items-center gap-2 text-base"><FileUp className="w-4 h-4" /> 1. Upload</div>
+            </TabsTrigger>
+            <TabsTrigger value="diff" disabled={!hasData} className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-md transition-all">
+              <div className="flex items-center gap-2 text-base"><LayoutList className="w-4 h-4" /> 2. Review Changes</div>
+            </TabsTrigger>
+            <TabsTrigger value="summary" disabled={!hasData} className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-md transition-all">
+              <div className="flex items-center gap-2 text-base"><Sparkles className="w-4 h-4" /> 3. Summary</div>
+            </TabsTrigger>
+          </TabsList>
+          
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <TabsContent value="upload" className="mt-0 outline-none">
+                <UploadTab onComplete={() => setTab('diff')} />
+              </TabsContent>
+              
+              <TabsContent value="diff" className="mt-0 outline-none">
+                <DiffTab />
+              </TabsContent>
+              
+              <TabsContent value="summary" className="mt-0 outline-none">
+                <SummaryTab />
+              </TabsContent>
+            </motion.div>
+          </AnimatePresence>
+        </Tabs>
+      </div>
+    </main>
   );
 }
