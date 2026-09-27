@@ -6,7 +6,7 @@ import { DiffTab } from '@/components/DiffTab';
 import { SummaryTab } from '@/components/SummaryTab';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTimetableStore } from '@/store/useTimetableStore';
-import { FileUp, GitMerge, TerminalSquare, ArrowRight, Zap, Target, Layers } from 'lucide-react';
+import { FileUp, GitMerge, TerminalSquare, Zap, Target, Layers } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Home() {
